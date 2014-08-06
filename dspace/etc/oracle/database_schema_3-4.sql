@@ -22,6 +22,11 @@
 --
 
 -------------------------------------------
+-- Ensure that discoverable has a sensible default
+-------------------------------------------
+update item set discoverable=1 WHERE discoverable IS NULL;
+
+-------------------------------------------
 -- Add support for DOIs (table and seq.) --
 -------------------------------------------
 
@@ -47,7 +52,7 @@ CREATE TABLE Webapp
 (
     webapp_id INTEGER NOT NULL PRIMARY KEY,
     AppName VARCHAR2(32),
-    URL VARCHAR2,
+    URL VARCHAR2(1000),
     Started TIMESTAMP,
     isUI NUMBER(1)
 );
@@ -62,7 +67,7 @@ CREATE TABLE requestitem
 (
   requestitem_id INTEGER NOT NULL,
   token varchar(48),
-  item_id INDEX,
+  item_id INTEGER,
   bitstream_id INTEGER,
   allfiles NUMBER(1),
   request_email VARCHAR2(64),
